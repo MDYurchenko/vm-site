@@ -47,8 +47,9 @@ class Contract(models.Model):
     '''
     docstring
     '''
-    id = models.PositiveIntegerField(
+    id = models.AutoField(
         primary_key=True,
+        auto_created=True,
         unique=True,
         blank=False
     )
@@ -81,7 +82,9 @@ class Contract(models.Model):
         blank=False,
     )
     completed_date = models.DateField(
-        verbose_name='Дата завершения'
+        verbose_name='Дата завершения',
+        blank=True,
+        null=True,
     )
 
     equipment_required = models.ForeignKey(
@@ -163,69 +166,80 @@ class Client(models.Model):
     )
 
     inn = models.PositiveIntegerField(
-        max_length=10,
+        #max_length=10,
         verbose_name='ИНН',
-        blank=True
+        blank=True,
+        null=True
     )
 
     bik = models.PositiveIntegerField(
-        max_length=9,
+        #max_length=9,
         verbose_name='БИК',
-        blank=True
+        blank=True,
+        null=True
     )
 
     kpp = models.PositiveIntegerField(
-        max_length=9,
+        #max_length=9,
         verbose_name='КПП',
-        blank=True
+        blank=True,
+        null=True
     )
 
     correspondent_account = models.PositiveIntegerField(
-        max_length=20,
+        #max_length=20,
         verbose_name='Корреспондентский счет',
-        blank=True
+        blank=True,
+        null=True
     )
 
     checking_account = models.PositiveIntegerField(
-        max_length=20,
+        #max_length=20,
         verbose_name='Расчетный счет',
-        blank=True
+        blank=True,
+        null=True
     )
 
     bank = models.CharField(
         max_length=200,
         verbose_name='Банк получателя',
-        blank=True
+        blank=True,
+        null=True
     )
 
     address_country = models.CharField(
         max_length=50,
         verbose_name='Страна',
-        blank=True
+        blank=True,
+        null=True
     )
 
     post_index = models.PositiveIntegerField(
-        max_length=6,
+        #max_length=6,
         verbose_name='Почтовый индекс',
-        blank=True
+        blank=True,
+        null=True
     )
 
     address_city = models.CharField(
         max_length=50,
         verbose_name='Населенный пункт',
-        blank=True
+        blank=True,
+        null=True
     )
 
     address_street = models.CharField(
         max_length=50,
         verbose_name='Улица',
-        blank=True
+        blank=True,
+        null=True
     )
 
     address_building = models.PositiveIntegerField(
-        max_length=10,
+        #max_length=10,
         verbose_name='Номер здания',
-        blank=True
+        blank=True,
+        null=True
     )
 
     class Meta:

@@ -12,7 +12,7 @@ class ClientAdmin(admin.ModelAdmin):
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'equipment_used')
+    list_display = ('id', 'name')
     list_filter = ('name', 'equipment_used',)
     search_fields = ('name',)
     ordering = ('-id',)

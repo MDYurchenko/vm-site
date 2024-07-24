@@ -80,7 +80,7 @@ DATABASES = {
     'default': {
         'ENGINE': os.getenv("ENGINE"),
         'NAME': os.getenv("NAME"),
-        'USER': os.getenv("USER"),
+        'USER': os.getenv("USER_NAME"),
         'PASSWORD': os.getenv("PASSWORD"),
         'HOST': os.getenv("HOST"),
         'PORT': os.getenv("PORT"),
@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
