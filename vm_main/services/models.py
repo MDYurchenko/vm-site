@@ -19,15 +19,19 @@ class Service(models.Model):
         blank=False,
     )
     description = models.TextField(
-        max_length=350
+        max_length=350,
+        verbose_name='Описание'
     )
+
     equipment_used = models.ManyToManyField(
         to='Equipment',
-        blank=True
+        blank=True,
+        verbose_name='Используемое оборудование'
 
     )
     illustration = models.ImageField(
-        blank=True
+        blank=True,
+        verbose_name='Иллюстрация'
 
     )
 
@@ -50,19 +54,24 @@ class Contract(models.Model):
     )
     number = models.CharField(
         unique=True,
-        blank=True
+        blank=True,
+        verbose_name='Номер контракта'
+
     )
 
     client = models.ForeignKey(
         to='Client',
         blank=False,
-        on_delete = models.DO_NOTHING
+        on_delete = models.DO_NOTHING,
+        verbose_name='Клиент'
     )
 
     service = models.ForeignKey(
         to='Service',
-        on_delete=models.DO_NOTHING
+        on_delete=models.DO_NOTHING,
+        verbose_name='Услуга'
     )
+
     signed_date = models.DateField(
         verbose_name='Дата подписания'
     )
@@ -77,7 +86,8 @@ class Contract(models.Model):
 
     equipment_required = models.ForeignKey(
         to='Equipment',
-        on_delete=models.DO_NOTHING
+        on_delete=models.DO_NOTHING,
+        verbose_name='Необходимое оборудование'
     )
 
     class Meta:
@@ -135,7 +145,9 @@ class Client(models.Model):
     docstring
     '''
     organization_name = models.CharField(
-        max_length=150
+        max_length=150,
+        verbose_name='Наименование организации',
+        blank=False
     )
 
     email = models.EmailField(
@@ -145,9 +157,76 @@ class Client(models.Model):
     )
 
     contact_number = models.CharField(
-        max_length=12
+        max_length=12,
+        verbose_name='Контактный номер телефона',
+        blank=False
     )
 
+    inn = models.PositiveIntegerField(
+        max_length=10,
+        verbose_name='ИНН',
+        blank=True
+    )
+
+    bik = models.PositiveIntegerField(
+        max_length=9,
+        verbose_name='БИК',
+        blank=True
+    )
+
+    kpp = models.PositiveIntegerField(
+        max_length=9,
+        verbose_name='КПП',
+        blank=True
+    )
+
+    correspondent_account = models.PositiveIntegerField(
+        max_length=20,
+        verbose_name='Корреспондентский счет',
+        blank=True
+    )
+
+    checking_account = models.PositiveIntegerField(
+        max_length=20,
+        verbose_name='Расчетный счет',
+        blank=True
+    )
+
+    bank = models.CharField(
+        max_length=200,
+        verbose_name='Банк получателя',
+        blank=True
+    )
+
+    address_country = models.CharField(
+        max_length=50,
+        verbose_name='Страна',
+        blank=True
+    )
+
+    post_index = models.PositiveIntegerField(
+        max_length=6,
+        verbose_name='Почтовый индекс',
+        blank=True
+    )
+
+    address_city = models.CharField(
+        max_length=50,
+        verbose_name='Населенный пункт',
+        blank=True
+    )
+
+    address_street = models.CharField(
+        max_length=50,
+        verbose_name='Улица',
+        blank=True
+    )
+
+    address_building = models.PositiveIntegerField(
+        max_length=10,
+        verbose_name='Номер здания',
+        blank=True
+    )
 
     class Meta:
         verbose_name = 'Клиент'
