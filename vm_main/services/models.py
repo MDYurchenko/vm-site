@@ -9,6 +9,7 @@ class Service(models.Model):
         primary_key=True,
         auto_created=True,
         blank=False,
+        null=False,
         unique=True
     )
 
@@ -16,21 +17,26 @@ class Service(models.Model):
         max_length=150,
         unique=True,
         verbose_name='Название услуги',
+        null=False,
         blank=False,
     )
     description = models.TextField(
         max_length=350,
+        null=True,
+        blank=True,
         verbose_name='Описание'
     )
 
     equipment_used = models.ManyToManyField(
         to='Equipment',
         blank=True,
+        null=True,
         verbose_name='Используемое оборудование'
 
     )
     illustration = models.ImageField(
         blank=True,
+        null=True,
         verbose_name='Иллюстрация'
 
     )
@@ -51,23 +57,25 @@ class Contract(models.Model):
         primary_key=True,
         auto_created=True,
         unique=True,
-        blank=False
+        blank=False,
+        null=False,
     )
     number = models.CharField(
         unique=True,
         blank=True,
+        null=False,
         verbose_name='Номер контракта'
-
     )
 
     client = models.ForeignKey(
         to='Client',
         blank=False,
+        null=False,
         on_delete = models.DO_NOTHING,
         verbose_name='Клиент'
     )
 
-    service = models.ForeignKey(
+    service = models.ForeignKey( #ManyToMany сделать??? Можно же несколько услуг в одном контракте
         to='Service',
         on_delete=models.DO_NOTHING,
         verbose_name='Услуга'
@@ -105,10 +113,11 @@ class Equipment(models.Model):
     '''
     docstring
     '''
-    id = models.PositiveIntegerField(
+    id = models.AutoField(
         primary_key=True,
         auto_created=True,
         blank=False,
+        null=False,
         unique=True
     )
 
@@ -117,11 +126,14 @@ class Equipment(models.Model):
         unique=True,
         verbose_name='Название оборудования',
         blank=False,
+        null=False,
     )
 
     description = models.TextField(
         max_length=350,
-        verbose_name='Описание'
+        verbose_name='Описание',
+        blank=True,
+        null=False,
     )
 
     class EquipmentState(models.TextChoices):
@@ -129,9 +141,10 @@ class Equipment(models.Model):
         BUSY = 'Used_in_another_contract'
         BROKEN = 'Need_to_be_repair'
 
-    is_free = models.CharField(
+    is_free = models.CharField( #удалить вообще? в бизнес-логике потом сделать норм
         choices=EquipmentState,
-        blank=False,
+        blank=True,
+        null=False,
         verbose_name='Свободно для использования'
     )
 
@@ -150,19 +163,23 @@ class Client(models.Model):
     organization_name = models.CharField(
         max_length=150,
         verbose_name='Наименование организации',
-        blank=False
+        blank=False,
+        null=False,
+        unique=True,
     )
 
     email = models.EmailField(
         unique=True,
         blank=False,
-        verbose_name='Email'
+        null=False,
+        verbose_name='Email',
     )
 
     contact_number = models.CharField(
         max_length=12,
         verbose_name='Контактный номер телефона',
-        blank=False
+        blank=False,
+        null=False,
     )
 
     inn = models.PositiveIntegerField(
